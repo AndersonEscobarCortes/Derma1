@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Analizador de lesiones en la piel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Online image analyzer of the three most likely diagnoses for a skin lesion.">
+    <style>
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 20px;
+            color: #0059b3;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            margin-top: 80px; /* Para que el contenido no quede oculto detrás del encabezado */
+            font-family: 'Helvetica', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 960px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .w3-btn {
+            background-color: #2c3e50;
+            border: none;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .w3-btn:hover {
+            background-color: #1a252f;
+        }
+
+        h1 {
+            color: #34495e;
+            font-size: 28px;
+        }
+
+        h3, h5, h6 {
+            color: #2c3e50;
+        }
+
+        .progress-bar {
+            font-size: 14px;
+            background-color: #dfe6e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            color: #2d3436;
+        }
+
+        .adjust-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed-header">
+        <strong>Modelo estático en producción web</strong><br>
+        <span>Presentado por Luis Felipe Ramirez y Anderson Escobar</span>
+    </div>
+
+    <div class="w3-content card">
+        <div class="tabbed w3-animate-opacity w3-white" id="home">
+            <div class="w3-center title adjust-fontcolor logo">
+                <div class="w3-center">
+                    <img class="adjust-image" src="assets/logoinub.jpg" width="150" alt="">
+                </div>
+                <h1 class="space-letters"><b>Analizador de lesiones en la piel</b></h1>
+                <h3 class="space-letters"><b>Analizador de imágenes en línea de los tres diagnósticos más probables para una lesión en la piel</b></h3>
+            </div>
+
+            <div class="w3-center">
+                <div align="center">
+                    <img id="selected-image" class="adjust-image" src="assets/samplepic.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="w3-center">
+                <div class="progress-bar">Modelo con Inteligencia Artificial cargando...</div>
+            </div>
+
+            <div class="w3-center add-padding w3-border add-margin side-margin w3-round w3-pale-blue">
+                <h5 class='new-font'>Resultados</h5>
+                <ol class='w3-left-align' id='prediction-list' style="text-align: left; margin: auto; max-width: 600px;"></ol>
+            </div>
+
+            <div id="btnn" class="w3-center bottom-padding">
+                <button class="w3-btn w3-round w3-margin-bottom adjust-spacing w3-hover-green btn-font w3-padding w3-space-letters w3-card-4" onclick="setTimeout(simulateClick.bind(null, 'image-selector'), 200)"><i class='fas fa-camera w3-padding-right' style='font-size:15px'></i><b>Enviar una imagen de una lesión en la piel</b></button>
+            </div>
+        </div>
+
+        <div class='w3-padding'>
+            <h5 class="space-letters tag-font"><b>Caracteristicas técnicas del Modelo:</b></h5>
+            <h5 class="space-letters tag-font"><b>- Exactitud: 0.90 </b></h5>
+            <h5 class="space-letters tag-font"><b>- Presición: 0.91 </b></h5>
+            <h5 class="space-letters tag-font"><b>- Sencibilidad: 0.90 </b></h5>
+            <h6 class="space-letters tag-font"><b>El entrenamiento del modelo está basado en el conjunto de 10015 imágenes dermatoscópicas de Harvard, entrenado con Tensorflow</b></h6>
+        </div>
+
+        <div class="hide">
+            <button id='predict-button'>Predict</button>
+        </div>
+
+        <div class="hide">
+            <input id="image-selector" type="file">
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"></script>
+    <script src="jscript/target_classes.js"></script>
+    <script src="jscript/predict100.js"></script>
+
+</body>
+</html>
+
